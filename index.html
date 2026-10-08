@@ -8,7 +8,8 @@
   <meta name="description" content="christopher tran — electrical engineering at ucla. work, cv, and other things.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500&family=Roboto:wght@400&display=swap"
+    rel="stylesheet">
   <script>
     try { var t = localStorage.getItem('theme'); if (t) document.documentElement.dataset.theme = t; } catch (e) { }
   </script>
@@ -156,7 +157,7 @@
     }
 
     .photo {
-      flex: 0 0 160px;
+      flex: 0 0 320px;
       aspect-ratio: 4 / 5;
       overflow: hidden;
       background: color-mix(in srgb, var(--fg) 8%, transparent);
@@ -319,6 +320,14 @@
       background: color-mix(in srgb, var(--fg) 8%, transparent);
     }
 
+    .frame.soon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: "Roboto", sans-serif;
+      color: color-mix(in srgb, var(--fg) 60%, transparent);
+    }
+
     .frame video {
       display: block;
       width: 100%;
@@ -364,7 +373,8 @@
 
       .photo {
         flex-basis: auto;
-        width: 160px;
+        width: 320px;
+        max-width: 100%;
       }
 
     }
@@ -388,7 +398,7 @@
       <div class="name">christopher tran</div>
       <nav aria-label="sections">
         <a href="#about">about</a>
-        <a href="#cv">cv</a>
+        <a href="#cv">curriculum vitae</a>
         <a href="#showcase">showcase</a>
         <a href="#misc">misc</a>
         <button class="theme" type="button" aria-label="toggle dark mode">dark</button>
@@ -399,7 +409,7 @@
 
       <section data-tab="about" aria-label="about">
         <div class="intro">
-          <div class="photo"><img src="me.jpg" alt="christopher tran" onerror="this.remove()"></div>
+          <div class="photo"><img src="sf.jpg" alt="christopher tran" onerror="this.remove()"></div>
           <ul class="stats">
             <li>top 0.7% osu!mania player worldwide</li>
             <li>top 1 cyclist in placentia area (4.2 w/kg peak)</li>
@@ -493,14 +503,14 @@
           </div>
           <div class="row">
             <div class="row-head"><span>samsung solve for tomorrow, state finalist</span><span>2024 – 25</span></div>
-            <p>with vocalis.</p>
+            <p>5.5k + gaming chairswith vocalis.</p>
           </div>
         </div>
 
         <h2 id="experience">experience</h2>
         <div class="list">
           <div class="row">
-            <div class="row-head"><span>factful, marketing producer</span><span>2024 – now</span></div>
+            <div class="row-head"><span>marketing producer</span><span>2024 – now</span></div>
             <p>motion graphics ads for clients in after effects; campaigns and client presentations with the marketing
               team.</p>
           </div>
@@ -564,23 +574,19 @@
       <section data-tab="showcase" aria-label="showcase">
         <div class="reel">
           <figure class="clip">
-            <div class="frame"><video src="videos/factful.mp4" controls preload="metadata" playsinline
-                onerror="this.remove()"></video></div>
+            <div class="frame soon">coming soon</div>
             <figcaption>factful, motion ad</figcaption>
           </figure>
           <figure class="clip">
-            <div class="frame"><video src="videos/commission.mp4" controls preload="metadata" playsinline
-                onerror="this.remove()"></video></div>
+            <div class="frame soon">coming soon</div>
             <figcaption>commission</figcaption>
           </figure>
           <figure class="clip">
-            <div class="frame"><video src="videos/edit-1.mp4" controls preload="metadata" playsinline
-                onerror="this.remove()"></video></div>
+            <div class="frame soon">coming soon</div>
             <figcaption>edit</figcaption>
           </figure>
           <figure class="clip">
-            <div class="frame"><video src="videos/edit-2.mp4" controls preload="metadata" playsinline
-                onerror="this.remove()"></video></div>
+            <div class="frame soon">coming soon</div>
             <figcaption>edit</figcaption>
           </figure>
         </div>
