@@ -7,14 +7,26 @@
   <title>christopher tran</title>
   <meta name="description" content="christopher tran — electrical engineering at ucla. work, cv, and other things.">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500&family=Roboto:wght@400&display=swap"
-    rel="stylesheet">
+  <link rel="preload" href="fonts/google-sans.9f244e26.woff2" as="font" type="font/woff2" crossorigin>
   <script>
     try { var t = localStorage.getItem('theme'); if (t) document.documentElement.dataset.theme = t; } catch (e) { }
   </script>
   <style>
+    /* self-hosted, subset to lowercase latin (text-transform: lowercase hides caps) */
+    @font-face {
+      font-family: "Google Sans";
+      font-weight: 400 500;
+      font-display: swap;
+      src: url(fonts/google-sans.9f244e26.woff2) format("woff2");
+    }
+
+    @font-face {
+      font-family: "Roboto";
+      font-weight: 400;
+      font-display: swap;
+      src: url(fonts/roboto.366f19c0.woff2) format("woff2");
+    }
+
     :root {
       --bg: #fff;
       --fg: #000;
@@ -410,7 +422,13 @@
 
       <section data-tab="about" aria-label="about">
         <div class="intro">
-          <div class="photo"><img src="sf.jpg" alt="christopher tran" onerror="this.remove()"></div>
+          <div class="photo">
+            <picture>
+              <source type="image/avif" srcset="img/sf-640.f4bc904a.avif 640w, img/sf-960.e00d613c.avif 960w" sizes="320px">
+              <img src="img/sf-640.39b6af09.jpg" width="640" height="800" alt="christopher tran" fetchpriority="high"
+                decoding="async" onerror="this.remove()">
+            </picture>
+          </div>
           <ul class="stats">
             <li>top 0.7% osu!mania player worldwide</li>
             <li>top 1 cyclist in placentia area (4.2 w/kg peak)</li>
@@ -611,30 +629,17 @@
       const themeBtn = document.querySelector('.theme');
       const onShow = [];
 
-      function fadeIn(el) {
-        if (!still) el.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 400, easing: 'ease-out' });
-      }
-
-      let current = null, token = 0;
-      function show(name, first) {
+      // tabs swap instantly: no fade, nothing to wait on
+      let current = null;
+      function show(name) {
         const next = tabs.find(t => t.dataset.tab === name) || tabs[0];
         links.forEach(a => a.hash === '#' + next.dataset.tab ? a.setAttribute('aria-current', 'page') : a.removeAttribute('aria-current'));
         document.title = next.dataset.tab === 'about' ? 'christopher tran' : next.dataset.tab + ' — christopher tran';
         if (next === current) return;
-
-        const prev = current, my = ++token;
+        if (current) current.classList.remove('on');
         current = next;
-        const swap = () => {
-          if (my !== token) return;
-          if (prev) prev.classList.remove('on');
-          next.classList.add('on');
-          onShow.forEach(f => f());
-          if (!first) fadeIn(next);
-        };
-        if (prev && !still) {
-          prev.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 220, easing: 'cubic-bezier(.45,0,.55,1)' })
-            .finished.then(swap, swap);
-        } else swap();
+        next.classList.add('on');
+        onShow.forEach(f => f());
       }
       addEventListener('hashchange', () => show(location.hash.slice(1)));
 
@@ -680,8 +685,7 @@
       matchMedia('(prefers-color-scheme: dark)').addEventListener('change', label);
       label();
 
-      show(location.hash.slice(1), true);
-      fadeIn(document.querySelector('.page'));
+      show(location.hash.slice(1));
     })();
   </script>
 </body>
