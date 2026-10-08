@@ -368,6 +368,79 @@
       opacity: .5;
     }
 
+    /* native scrollbar off; .rail draws a hairline one that wakes on scroll */
+    html {
+      scrollbar-width: none;
+    }
+
+    html::-webkit-scrollbar {
+      display: none;
+    }
+
+    .rail {
+      position: fixed;
+      top: 12px;
+      bottom: 12px;
+      right: 0;
+      z-index: 2;
+      width: 18px;
+      opacity: 0;
+      touch-action: none;
+      transition: opacity .8s var(--ease);
+    }
+
+    .rail::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      right: 8px;
+      width: 1px;
+      background: color-mix(in srgb, var(--fg) 12%, transparent);
+    }
+
+    .rail.awake,
+    .rail.drag {
+      opacity: 1;
+      transition-duration: .2s;
+    }
+
+    .rail[hidden] {
+      display: none;
+    }
+
+    .thumb {
+      position: absolute;
+      top: 0;
+      right: 7px;
+      width: 3px;
+      border-radius: 3px;
+      background: var(--fg);
+      opacity: .5;
+      will-change: transform;
+      transition: width .3s var(--ease-out), right .3s var(--ease-out), opacity .3s var(--ease-out), background-color .4s var(--ease);
+    }
+
+    @media (hover: hover) {
+      .rail:hover {
+        opacity: 1;
+        transition-duration: .2s;
+      }
+
+      .rail:hover .thumb,
+      .rail.drag .thumb {
+        right: 6px;
+        width: 5px;
+        opacity: .85;
+      }
+    }
+
+    @media (hover: none) {
+      .rail {
+        pointer-events: none;
+      }
+    }
+
     @media (max-width: 480px) {
       .page {
         padding-top: 32px;
@@ -430,12 +503,8 @@
       <section data-tab="about" aria-label="about">
         <div class="intro">
           <div class="photo">
-            <picture>
-              <source type="image/avif" srcset="img/sf-640.f4bc904a.avif 640w, img/sf-960.e00d613c.avif 960w"
-                sizes="320px">
-              <img src="img/sf-640.39b6af09.jpg" width="640" height="800" alt="christopher tran" fetchpriority="high"
-                decoding="async" onerror="this.remove()">
-            </picture>
+            <img src="sf.jpg" width="2160" height="2880" alt="christopher tran" fetchpriority="high"
+              decoding="async" onerror="this.remove()">
           </div>
           <ul class="stats">
             <li>top 0.7% osu!mania player worldwide</li>
@@ -444,7 +513,7 @@
             <li>ive never had a pet, but i love cats</li>
           </ul>
         </div>
-        <p style="font-size: 14px;">hi, i'm christopher, an electrical engineering student at ucla, from yorba linda,
+        <p style="font-size: 14px;">hi, i'm christopher, an electrical engineering student at ucla, from placentia,
           california. right now:
           first year at ucla with ieee, asce and uas@ucla, and producing motion graphics for commissions and fun.</p>
         <p><a href="mailto:nguypershi@gmail.com">email</a>, <a href="https://github.com/nguyyy" target="_blank"
@@ -496,11 +565,11 @@
           <div class="row">
             <div class="row-head"><span>refire, stream highlight editor</span><span>2026</span></div>
             <p>turns hours-long streams into edited videos in any style.</p>
-            <p class="sub">impact</p>
-            <p>624k views and 1,052 new subscribers in one month on a long-form youtube channel</p>
+            <p class="sub">proof</p>
+            <p>624k views and 1,052 new subscribers in one month on a fresh, long-form youtube channel</p>
             <p>50%+ average view duration</p>
             <p class="sub">how it works</p>
-            <p>finds key moments from chat activity, the transcript, audio volume and on-screen motion</p>
+            <p>finds key moments from chat activity, transcript, audio volume, and on-screen motion</p>
             <p>local models plus api-based storyboarding</p>
             <p class="sub">stack</p>
             <p>python, ffmpeg, opencv, llms</p>
@@ -538,8 +607,10 @@
         <div class="list">
           <div class="row">
             <div class="row-head"><span>marketing producer</span><span>2024 – now</span></div>
-            <p>motion graphics ads for clients in after effects; campaigns and client presentations with the marketing
+            <p>motion graphics ads for SaaS clients in after effects; campaigns and client presentations with the
+              marketing
               team.</p>
+            <p>4.9M+ impressions</p>
           </div>
           <div class="row">
             <div class="row-head"><span>thecoderschool, coding instructor</span><span>2025</span></div>
@@ -556,7 +627,7 @@
         <div class="list">
           <div class="row">
             <div class="row-head"><span>cyberpatriot</span><span>2022 – 2026</span></div>
-            <p>secured machines and patched vulnerabilities as a team; platinum tier two years running (top 30%
+            <p>secured linux machines and patched vulnerabilities; platinum tier two years running (top 30%
               nationally).</p>
           </div>
           <div class="row">
@@ -593,7 +664,7 @@
           </div>
           <div class="row">
             <div class="row-head"><span>languages</span></div>
-            <p>english (native), vietnamese (cefr b2), japanese (self-study, jlpt n4)</p>
+            <p>english (native), vietnamese (cefr b2), other (self-study, cefr a2)</p>
           </div>
         </div>
       </section>
@@ -607,11 +678,11 @@
 
       <section data-tab="misc" aria-label="misc">
         <h2>likes</h2>
-        <p>building pcs, tennis, snowboarding, hiking, film, motion design and video editing.</p>
+        <p>building pcs, tennis, cycling, snowboarding, hiking, film, motion design and video editing.</p>
 
         <h2>learning</h2>
         <ul>
-          <li>japanese, self-study. currently around n4, 2k+ words circulating.</li>
+          <li>language, self-study. currently around cefr a2, 2k+ words</li>
           <li>lockpicking, for fun. i'm not a criminal. i promise.</li>
           <li>circuit theory</li>
         </ul>
@@ -626,6 +697,10 @@
     </main>
 
     <footer>est. 2007 // christopher tran</footer>
+  </div>
+
+  <div class="rail" aria-hidden="true" hidden>
+    <div class="thumb"></div>
   </div>
 
   <script>
@@ -672,11 +747,54 @@
           set(i);
           heads[i].scrollIntoView({ behavior: still ? 'auto' : 'smooth' });
         }));
-        ['wheel', 'touchstart', 'keydown'].forEach(e => addEventListener(e, () => { pinned = -1; }, { passive: true }));
+        ['wheel', 'touchstart', 'keydown', 'pointerdown'].forEach(e => addEventListener(e, () => { pinned = -1; }, { passive: true }));
         addEventListener('scroll', mark, { passive: true });
         addEventListener('resize', mark);
         onShow.push(mark);
       });
+
+      // scrollbar: thumb tracks scrollY; drag it, or press the rail to jump there
+      const rail = document.querySelector('.rail');
+      const thumb = rail.firstElementChild;
+      let idle, grab = null;
+      const max = () => root.scrollHeight - innerHeight;
+      const size = () => Math.max(40, rail.clientHeight * innerHeight / root.scrollHeight);
+      const clamp = y => Math.max(0, Math.min(max(), y));
+      function sync() {
+        rail.hidden = max() < 1;
+        if (rail.hidden) return;
+        const h = size();
+        thumb.style.height = h + 'px';
+        thumb.style.transform = 'translateY(' + (rail.clientHeight - h) * Math.min(1, scrollY / max()) + 'px)';
+      }
+      function wake() {
+        rail.classList.add('awake');
+        clearTimeout(idle);
+        idle = setTimeout(() => rail.classList.remove('awake'), 900);
+      }
+      addEventListener('scroll', () => { sync(); wake(); }, { passive: true });
+      addEventListener('resize', sync);
+      new ResizeObserver(sync).observe(document.body);
+      onShow.push(sync);
+
+      rail.addEventListener('pointerdown', e => {
+        e.preventDefault();
+        const ratio = max() / Math.max(1, rail.clientHeight - size());
+        let from = scrollY;
+        if (e.target !== thumb) {
+          from = clamp((e.clientY - rail.getBoundingClientRect().top - size() / 2) * ratio);
+          scrollTo(0, from);
+        }
+        grab = { y: e.clientY, from, ratio };
+        rail.setPointerCapture(e.pointerId);
+        rail.classList.add('drag');
+      });
+      rail.addEventListener('pointermove', e => {
+        if (grab) scrollTo(0, clamp(grab.from + (e.clientY - grab.y) * grab.ratio));
+      });
+      const drop = () => { grab = null; rail.classList.remove('drag'); };
+      rail.addEventListener('pointerup', drop);
+      rail.addEventListener('pointercancel', drop);
 
       const isDark = () => getComputedStyle(root).getPropertyValue('--bg').trim() === '#000';
       function label() {
