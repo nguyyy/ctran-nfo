@@ -1,0 +1,417 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>christopher tran</title>
+<meta name="description" content="christopher tran — electrical engineering at ucla. work, cv, and other things.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500&display=swap" rel="stylesheet">
+<script>
+  try { var t = localStorage.getItem('theme'); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
+</script>
+<style>
+  :root {
+    --bg: #fff;
+    --fg: #000;
+    --ease: cubic-bezier(.45, 0, .55, 1);
+    --ease-out: cubic-bezier(.33, 1, .68, 1);
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) { --bg: #000; --fg: #fff; color-scheme: dark; }
+  }
+  :root[data-theme="dark"] { --bg: #000; --fg: #fff; color-scheme: dark; }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html {
+    font-family: "Google Sans", "Times New Roman", serif;
+    font-size: 15px;
+    line-height: 1.5;
+    text-transform: lowercase;
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    transition: background-color .4s var(--ease), color .4s var(--ease);
+  }
+  ::selection { background: var(--fg); color: var(--bg); }
+
+  a, button {
+    color: inherit;
+    font: inherit;
+    text-transform: inherit;
+    background: none;
+    border: 0;
+    cursor: pointer;
+  }
+  a {
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: .2em;
+    text-decoration-color: color-mix(in srgb, var(--fg) 30%, transparent);
+    transition: text-decoration-color .3s var(--ease);
+  }
+  a:hover { text-decoration-color: var(--fg); }
+  :focus-visible { outline: 1px solid var(--fg); outline-offset: 3px; }
+
+  .page {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 48px 16px 12vh;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .name { font-weight: 500; }
+  nav {
+    display: flex;
+    gap: 1.25em;
+    margin: .25em 0 3.5em;
+  }
+  nav .theme { margin-left: auto; }
+  nav a, nav button {
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: .2em;
+    opacity: .45;
+    transition: opacity .3s var(--ease);
+  }
+  nav a[aria-current="page"] { opacity: 1; }
+  @media (hover: hover) {
+    nav a:hover, nav button:hover { opacity: 1; }
+  }
+
+  main { flex: 1; }
+  [data-tab] { display: none; }
+  [data-tab].on { display: block; }
+
+  p + p { margin-top: 1em; }
+
+  .intro {
+    display: flex;
+    align-items: center;
+    gap: 1.75em;
+    margin-bottom: 2em;
+  }
+  .photo {
+    flex: 0 0 160px;
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+    background: color-mix(in srgb, var(--fg) 8%, transparent);
+  }
+  .photo img { display: block; width: 100%; height: 100%; object-fit: cover; }
+  .stats { padding-left: 1.1em; }
+  .stats li + li { margin-top: .4em; }
+  .muted { opacity: .5; }
+  h2 {
+    font: inherit;
+    opacity: .5;
+    margin: 2.75em 0 .75em;
+  }
+  h2:first-child { margin-top: 0; }
+
+  .row { padding: .5em 0; }
+  .row-head {
+    display: flex;
+    justify-content: space-between;
+    gap: 1.5em;
+  }
+  .row-head > :last-child { opacity: .5; white-space: nowrap; }
+  .row p { opacity: .65; margin-top: .1em; }
+  .row p + p { margin-top: .1em; }
+
+  @media (hover: hover) {
+    .list > * { transition: opacity .3s var(--ease); }
+    .list:hover > *:not(:hover) { opacity: .3; }
+  }
+
+  .item { border-top: 1px solid color-mix(in srgb, var(--fg) 12%, transparent); }
+  .item:last-child { border-bottom: 1px solid color-mix(in srgb, var(--fg) 12%, transparent); }
+  .item > button {
+    width: 100%;
+    display: flex;
+    align-items: baseline;
+    gap: 1.5em;
+    padding: .85em 0;
+    text-align: left;
+  }
+  .item .title { flex: 1; }
+  .item .title span { opacity: .5; }
+  .item .year { opacity: .5; white-space: nowrap; }
+  .item .plus {
+    display: inline-block;
+    width: .8em;
+    text-align: center;
+    transition: transform .6s var(--ease-out);
+  }
+  .item.open .plus { transform: rotate(45deg); }
+  .more {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows .6s var(--ease-out);
+  }
+  .item.open .more { grid-template-rows: 1fr; }
+  .more > div {
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(-.4em);
+    transition: opacity .4s var(--ease), transform .6s var(--ease-out);
+  }
+  .item.open .more > div { opacity: 1; transform: none; transition-delay: .1s; }
+  .more-inner { padding: 0 2.3em 1.25em 0; }
+  .more-inner p { opacity: .75; }
+  .more-inner .tags { opacity: .45; margin-top: 1em; }
+
+  footer {
+    margin-top: 6em;
+    opacity: .35;
+  }
+
+  @media (max-width: 480px) {
+    .page { padding-top: 32px; }
+    nav { gap: 1em; }
+    .row-head { flex-direction: column; gap: 0; }
+    .intro { flex-direction: column; align-items: flex-start; }
+    .photo { flex-basis: auto; width: 160px; }
+    .more-inner { padding-right: 0; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { transition: none !important; animation: none !important; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header>
+    <div class="name">christopher tran</div>
+    <nav aria-label="sections">
+      <a href="#about">about</a>
+      <a href="#cv">cv</a>
+      <a href="#showcase">showcase</a>
+      <a href="#misc">misc</a>
+      <button class="theme" type="button" aria-label="toggle dark mode">dark</button>
+    </nav>
+  </header>
+
+  <main>
+
+    <section data-tab="about" aria-label="about">
+      <div class="intro">
+        <div class="photo"><img src="me.jpg" alt="christopher tran" onerror="this.remove()"></div>
+        <ul class="stats">
+          <li>top 0.7% osu!mania player worldwide</li>
+          <li>top 1 cyclist in placentia area by w/kg (4.2 w/kg peak)</li>
+          <li>1m+ vertical feet of snowboarding</li>
+        </ul>
+      </div>
+      <p>hi, i'm christopher — an electrical engineering student at ucla, from yorba linda, california. right now: first year at ucla with ieee, asce and uas@ucla, and producing motion graphics for commissions and fun.</p>
+      <p><a href="mailto:nguypershi@gmail.com">email</a>, <a href="https://github.com/nguyyy" target="_blank" rel="noopener">github</a>, <a href="https://www.linkedin.com/in/christopher-tran-6b8811353/" target="_blank" rel="noopener">linkedin</a></p>
+    </section>
+
+    <section data-tab="cv" aria-label="cv">
+      <h2>education</h2>
+      <div class="list">
+        <div class="row">
+          <div class="row-head"><span>university of california, los angeles</span><span>2026 – 2030</span></div>
+          <p>b.s. electrical engineering</p>
+          <p>ieee, american society of civil engineers, uas@ucla</p>
+        </div>
+        <div class="row">
+          <div class="row-head"><span>valencia high school, valencia technology academy</span><span>2026</span></div>
+          <p>gpa 4.84 weighted, sat 1520</p>
+          <p>samsung solve for tomorrow state finalist, national honor society, distinguished scholar award (2023 – 2026)</p>
+        </div>
+      </div>
+
+      <h2>experience</h2>
+      <div class="list">
+        <div class="row">
+          <div class="row-head"><span>factful, marketing producer</span><span>2024 – now</span></div>
+          <p>motion graphics ads for clients in after effects; campaigns and client presentations with the marketing team.</p>
+        </div>
+        <div class="row">
+          <div class="row-head"><span>thecoderschool, coding instructor</span><span>2025</span></div>
+          <p>wrote beginner-friendly lessons and guided young students one-on-one through hands-on projects.</p>
+        </div>
+        <div class="row">
+          <div class="row-head"><span>yorba linda friends church vbs, leader &amp; supervisor</span><span>2019 – now</span></div>
+          <p>responsible for 300+ students a day; design crafts, bible study and recreation activities.</p>
+        </div>
+      </div>
+
+      <h2>leadership &amp; activities</h2>
+      <div class="list">
+        <div class="row">
+          <div class="row-head"><span>cyberpatriot</span><span>2022 – 2026</span></div>
+          <p>secured machines and patched vulnerabilities as a team; platinum tier two years running (top 30% nationally).</p>
+        </div>
+        <div class="row">
+          <div class="row-head"><span>science olympiad</span><span>2024 – 2026</span></div>
+          <p>six events; regional and state medals in circuit design, expd, helicopter and codebusters.</p>
+        </div>
+        <div class="row">
+          <div class="row-head"><span>future business leaders of america</span><span>2024 – 2026</span></div>
+          <p>4th and 6th in supply chain management; qualified for every state conference.</p>
+        </div>
+        <div class="row">
+          <div class="row-head"><span>varsity tennis</span><span>2024</span></div>
+          <p>moved up from jv; doubles mvp, spring 2024.</p>
+        </div>
+        <div class="row">
+          <div class="row-head"><span>national honor society, service committee</span><span>2024 – 2026</span></div>
+          <p>tutored students in stem; sorted and checked 100+ boxes of donations for tigers' closet, the school thrift store.</p>
+        </div>
+      </div>
+
+      <h2>skills</h2>
+      <div class="list">
+        <div class="row">
+          <div class="row-head"><span>technical</span></div>
+          <p>python, c#, c++, javascript, java, html/css, git, ffmpeg, opencv, after effects, premiere pro</p>
+        </div>
+        <div class="row">
+          <div class="row-head"><span>languages</span></div>
+          <p>english (native), vietnamese (cefr b2), japanese (self-study, jlpt n4)</p>
+        </div>
+      </div>
+    </section>
+
+    <section data-tab="showcase" aria-label="showcase">
+      <div class="list">
+        <div class="item">
+          <button type="button" aria-expanded="false">
+            <span class="title">speech-assistive app <span>— samsung solve for tomorrow</span></span>
+            <span class="year">2024 – 25</span><span class="plus" aria-hidden="true">+</span>
+          </button>
+          <div class="more"><div><div class="more-inner">
+            <p>an aac app for people with speech impairments. it transcribes the conversation live and suggests replies through a curated word grid, a sentence generator, or plain typing, then speaks them aloud.</p>
+            <p>a minimal node.js server streams audio into deepgram over websockets and proxies elevenlabs voices; llama 3.1 on groq curates replies and can take photos for visual context.</p>
+            <p>state finalist: $5,500+ in samsung tech and sponsor matches, plus 31 gaming chairs for the school.</p>
+            <p class="tags">node.js, websockets, deepgram, elevenlabs, groq</p>
+          </div></div></div>
+        </div>
+
+        <div class="item">
+          <button type="button" aria-expanded="false">
+            <span class="title">refire <span>— stream highlight editor</span></span>
+            <span class="year">2026</span><span class="plus" aria-hidden="true">+</span>
+          </button>
+          <div class="more"><div><div class="more-inner">
+            <p>turns hours-long streams into edited videos in any style. it finds key moments from chat activity, the transcript, audio volume and on-screen motion, using local models and api-based storyboarding.</p>
+            <p>used it to run a long-form youtube channel: 624k views and 1,052 new subscribers in one month, with 50%+ average view duration.</p>
+            <p class="tags">python, ffmpeg, opencv, llms</p>
+          </div></div></div>
+        </div>
+
+        <div class="item">
+          <button type="button" aria-expanded="false">
+            <span class="title">2dfn <span>— 2d multiplayer battle royale</span></span>
+            <span class="year">unity</span><span class="plus" aria-hidden="true">+</span>
+          </button>
+          <div class="more"><div><div class="more-inner">
+            <p>an online battle royale with public and private lobbies, join codes and host-side hit validation.</p>
+            <p>procedural, seed-based map generation, storm mechanics, a destructible build-and-edit system, and interactive landmarks.</p>
+            <p class="tags">c#, unity, netcode for gameobjects</p>
+          </div></div></div>
+        </div>
+
+        <div class="item">
+          <button type="button" aria-expanded="false">
+            <span class="title">motion graphics <span>— factful</span></span>
+            <span class="year">2024 – now</span><span class="plus" aria-hidden="true">+</span>
+          </button>
+          <div class="more"><div><div class="more-inner">
+            <p>advertisements for factful's clients, animated in after effects, alongside campaign work with the marketing team.</p>
+            <p class="tags">after effects, premiere pro</p>
+          </div></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section data-tab="misc" aria-label="misc">
+      <h2>likes</h2>
+      <p>building pcs, tennis, snowboarding, hiking, film, motion design and video editing.</p>
+
+      <h2>learning</h2>
+      <p>japanese, slowly, on my own. currently around n4.</p>
+
+      <h2>colophon</h2>
+      <p>one html file. set in google sans. no frameworks.</p>
+
+      <h2>say hi</h2>
+      <p><a href="mailto:nguypershi@gmail.com">nguypershi@gmail.com</a></p>
+    </section>
+
+  </main>
+
+  <footer>© 2026 christopher tran</footer>
+</div>
+
+<script>
+(() => {
+  const root = document.documentElement;
+  const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const tabs = [...document.querySelectorAll('[data-tab]')];
+  const links = [...document.querySelectorAll('nav a')];
+  const themeBtn = document.querySelector('.theme');
+
+  function fadeIn(el) {
+    if (!still) el.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 400, easing: 'ease-out' });
+  }
+
+  let current = null, token = 0;
+  function show(name, first) {
+    const next = tabs.find(t => t.dataset.tab === name) || tabs[0];
+    links.forEach(a => a.hash === '#' + next.dataset.tab ? a.setAttribute('aria-current', 'page') : a.removeAttribute('aria-current'));
+    document.title = next.dataset.tab === 'about' ? 'christopher tran' : next.dataset.tab + ' — christopher tran';
+    if (next === current) return;
+
+    const prev = current, my = ++token;
+    current = next;
+    const swap = () => {
+      if (my !== token) return;
+      if (prev) prev.classList.remove('on');
+      next.classList.add('on');
+      if (!first) fadeIn(next);
+    };
+    if (prev && !still) {
+      prev.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 220, easing: 'cubic-bezier(.45,0,.55,1)' })
+        .finished.then(swap, swap);
+    } else swap();
+  }
+  addEventListener('hashchange', () => show(location.hash.slice(1)));
+
+  document.querySelectorAll('.item > button').forEach(b => b.addEventListener('click', () => {
+    const open = b.parentElement.classList.toggle('open');
+    b.setAttribute('aria-expanded', open);
+  }));
+
+  const isDark = () => getComputedStyle(root).getPropertyValue('--bg').trim() === '#000';
+  function label() {
+    const word = isDark() ? 'light' : 'dark';
+    themeBtn.textContent = word;
+    themeBtn.setAttribute('aria-label', 'switch to ' + word + ' mode');
+  }
+  themeBtn.addEventListener('click', () => {
+    const t = isDark() ? 'light' : 'dark';
+    root.dataset.theme = t;
+    try { localStorage.setItem('theme', t); } catch (e) {}
+    label();
+  });
+  matchMedia('(prefers-color-scheme: dark)').addEventListener('change', label);
+  label();
+
+  show(location.hash.slice(1), true);
+  fadeIn(document.querySelector('.page'));
+})();
+</script>
+</body>
+</html>
