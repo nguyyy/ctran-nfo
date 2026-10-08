@@ -12,7 +12,6 @@
     try { var t = localStorage.getItem('theme'); if (t) document.documentElement.dataset.theme = t; } catch (e) { }
   </script>
   <style>
-    /* self-hosted, subset to lowercase latin (text-transform: lowercase hides caps) */
     @font-face {
       font-family: "Google Sans";
       font-weight: 400 500;
@@ -176,9 +175,14 @@
       margin-bottom: 2em;
     }
 
+    .intro,
+    [data-tab="showcase"] {
+      padding-top: .35em;
+    }
+
     .photo {
       flex: 0 0 320px;
-      aspect-ratio: 4 / 5;
+      aspect-ratio: 3 / 4;
       overflow: hidden;
       background: color-mix(in srgb, var(--fg) 8%, transparent);
     }
@@ -196,6 +200,12 @@
 
     .stats li+li {
       margin-top: .4em;
+    }
+
+    @media (min-width: 900px) {
+      .stats li {
+        white-space: nowrap;
+      }
     }
 
     .muted {
@@ -368,7 +378,6 @@
       opacity: .5;
     }
 
-    /* native scrollbar off; .rail draws a hairline one that wakes on scroll */
     html {
       scrollbar-width: none;
     }
@@ -503,8 +512,8 @@
       <section data-tab="about" aria-label="about">
         <div class="intro">
           <div class="photo">
-            <img src="sf.jpg" width="2160" height="2880" alt="christopher tran" fetchpriority="high"
-              decoding="async" onerror="this.remove()">
+            <img src="sf.jpg" width="2160" height="2880" alt="christopher tran" fetchpriority="high" decoding="async"
+              onerror="this.remove()">
           </div>
           <ul class="stats">
             <li>top 0.7% osu!mania player worldwide</li>
@@ -514,7 +523,8 @@
           </ul>
         </div>
         <p style="font-size: 14px;">hi, i'm christopher, an electrical engineering student at ucla, from placentia,
-          california. right now:
+          california.
+          right now:
           first year at ucla with ieee, asce and uas@ucla, and producing motion graphics for commissions and fun.</p>
         <p><a href="mailto:nguypershi@gmail.com">email</a>, <a href="https://github.com/nguyyy" target="_blank"
             rel="noopener">github</a>, <a href="https://www.linkedin.com/in/christopher-tran-6b8811353/" target="_blank"
@@ -712,7 +722,6 @@
       const themeBtn = document.querySelector('.theme');
       const onShow = [];
 
-      // old tab drops out instantly; the new one fades in via css (.on)
       let current = null;
       function show(name) {
         const next = tabs.find(t => t.dataset.tab === name) || tabs[0];
@@ -753,7 +762,6 @@
         onShow.push(mark);
       });
 
-      // scrollbar: thumb tracks scrollY; drag it, or press the rail to jump there
       const rail = document.querySelector('.rail');
       const thumb = rail.firstElementChild;
       let idle, grab = null;
