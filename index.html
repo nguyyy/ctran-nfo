@@ -642,7 +642,7 @@
       function show(name) {
         const next = tabs.find(t => t.dataset.tab === name) || tabs[0];
         links.forEach(a => a.hash === '#' + next.dataset.tab ? a.setAttribute('aria-current', 'page') : a.removeAttribute('aria-current'));
-        document.title = next.dataset.tab === 'about' ? 'christopher tran' : next.dataset.tab + ' — christopher tran';
+        document.title = next.dataset.tab === 'about' ? 'christopher tran' : next.dataset.tab + ' // christopher tran';
         if (next === current) return;
         if (current) current.classList.remove('on');
         current = next;
