@@ -1,12 +1,13 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
   <style>
     rect { fill: #000; }
-    text { fill: #fff; font: 500 60px Arial, Helvetica, sans-serif; }
+    path { fill: #fff; }
     @media (prefers-color-scheme: dark) {
       rect { fill: #fff; }
-      text { fill: #000; }
+      path { fill: #000; }
     }
   </style>
   <rect width="32" height="32" rx="7" />
-  <text x="16" y="50.6" text-anchor="middle">*</text>
+  <!-- arial "*" outlined to a path so it renders the same everywhere, font or not -->
+  <path d="M6.2 15.53 7.55 11.37Q12.21 13.01 14.32 14.21Q13.76 8.91 13.73 6.92H17.98Q17.89 9.82 17.3 14.18Q20.32 12.66 24.22 11.37L25.57 15.53Q21.84 16.76 18.27 17.17Q20.06 18.73 23.31 22.71L19.79 25.2Q18.09 22.89 15.78 18.9Q13.61 23.03 11.97 25.2L8.51 22.71Q11.91 18.52 13.38 17.17Q9.6 16.44 6.2 15.53Z" />
 </svg>

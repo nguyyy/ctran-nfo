@@ -16,58 +16,89 @@
     content="Electrical engineering student at UCLA from Placentia, California. Founder of Vocalis, builder of Refire.">
   <meta property="og:url" content="https://ctran.info/">
   <meta property="og:image" content="https://ctran.info/sf.jpg">
+  <meta property="og:image:width" content="2160">
+  <meta property="og:image:height" content="2880">
   <meta property="og:image:alt" content="Christopher Tran">
+  <meta property="og:locale" content="en_US">
   <meta property="profile:first_name" content="Christopher">
   <meta property="profile:last_name" content="Tran">
-  <meta name="twitter:card" content="summary">
+  <meta name="twitter:card" content="summary_large_image">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "ProfilePage",
-    "url": "https://ctran.info/",
-    "name": "Christopher Tran",
-    "mainEntity": {
-      "@type": "Person",
-      "@id": "https://ctran.info/#person",
-      "name": "Christopher Tran",
-      "givenName": "Christopher",
-      "familyName": "Tran",
-      "url": "https://ctran.info/",
-      "image": "https://ctran.info/sf.jpg",
-      "email": "mailto:nguypershi@gmail.com",
-      "jobTitle": "Electrical Engineering Student",
-      "description": "Electrical engineering student at UCLA from Placentia, California. Founder of Vocalis and builder of Refire.",
-      "affiliation": {
-        "@type": "CollegeOrUniversity",
-        "name": "University of California, Los Angeles",
-        "sameAs": "https://en.wikipedia.org/wiki/University_of_California,_Los_Angeles"
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://ctran.info/#website",
+        "url": "https://ctran.info/",
+        "name": "Christopher Tran",
+        "alternateName": "ctran.info",
+        "inLanguage": "en-US",
+        "publisher": { "@id": "https://ctran.info/#person" }
       },
-      "alumniOf": [
-        {
+      {
+        "@type": "ProfilePage",
+        "@id": "https://ctran.info/#profile",
+        "url": "https://ctran.info/",
+        "name": "Christopher Tran – Electrical Engineering @ UCLA | Placentia, CA",
+        "isPartOf": { "@id": "https://ctran.info/#website" },
+        "dateModified": "2026-11-19",
+        "inLanguage": "en-US",
+        "mainEntity": { "@id": "https://ctran.info/#person" },
+        "primaryImageOfPage": { "@id": "https://ctran.info/#photo" }
+      },
+      {
+        "@type": "ImageObject",
+        "@id": "https://ctran.info/#photo",
+        "url": "https://ctran.info/sf.jpg",
+        "contentUrl": "https://ctran.info/sf.jpg",
+        "width": 2160,
+        "height": 2880,
+        "caption": "Christopher Tran in San Francisco"
+      },
+      {
+        "@type": "Person",
+        "@id": "https://ctran.info/#person",
+        "name": "Christopher Tran",
+        "givenName": "Christopher",
+        "familyName": "Tran",
+        "url": "https://ctran.info/",
+        "mainEntityOfPage": { "@id": "https://ctran.info/#profile" },
+        "image": { "@id": "https://ctran.info/#photo" },
+        "email": "mailto:nguypershi@gmail.com",
+        "jobTitle": "Electrical Engineering Student",
+        "description": "Christopher Tran is an electrical engineering student at UCLA from Placentia, California. Founder of Vocalis and builder of Refire.",
+        "affiliation": {
           "@type": "CollegeOrUniversity",
           "name": "University of California, Los Angeles",
+          "alternateName": "UCLA",
           "sameAs": "https://en.wikipedia.org/wiki/University_of_California,_Los_Angeles"
         },
-        { "@type": "HighSchool", "name": "Valencia High School" }
-      ],
-      "homeLocation": {
-        "@type": "Place",
-        "name": "Placentia, California",
-        "address": { "@type": "PostalAddress", "addressLocality": "Placentia", "addressRegion": "CA", "addressCountry": "US" }
+        "alumniOf": {
+          "@type": "HighSchool",
+          "name": "Valencia High School",
+          "address": { "@type": "PostalAddress", "addressLocality": "Placentia", "addressRegion": "CA", "addressCountry": "US" },
+          "sameAs": "https://en.wikipedia.org/wiki/Valencia_High_School_(Placentia,_California)"
+        },
+        "homeLocation": {
+          "@type": "Place",
+          "name": "Placentia, California",
+          "address": { "@type": "PostalAddress", "addressLocality": "Placentia", "addressRegion": "CA", "addressCountry": "US" },
+          "sameAs": "https://en.wikipedia.org/wiki/Placentia,_California"
+        },
+        "memberOf": [
+          { "@type": "Organization", "name": "IEEE at UCLA" },
+          { "@type": "Organization", "name": "American Society of Civil Engineers at UCLA" },
+          { "@type": "Organization", "name": "UAS@UCLA" }
+        ],
+        "knowsAbout": ["Electrical engineering", "Circuit design", "Motion graphics", "Video editing", "After Effects", "Node.js", "Python", "Unity"],
+        "knowsLanguage": ["English", "Vietnamese"],
+        "award": ["National Merit Finalist", "Diamond Challenge Global Semifinalist", "Samsung Solve for Tomorrow State Finalist"],
+        "sameAs": [
+          "https://github.com/nguyyy",
+          "https://www.linkedin.com/in/christopher-tran-6b8811353/"
+        ]
       },
-      "memberOf": [
-        { "@type": "Organization", "name": "IEEE at UCLA" },
-        { "@type": "Organization", "name": "American Society of Civil Engineers at UCLA" },
-        { "@type": "Organization", "name": "UAS@UCLA" }
-      ],
-      "knowsAbout": ["Electrical engineering", "Circuit design", "Motion graphics", "Video editing", "After Effects", "Node.js", "Python", "Unity"],
-      "award": ["National Merit Finalist", "Diamond Challenge Global Semifinalist", "Samsung Solve for Tomorrow State Finalist"],
-      "sameAs": [
-        "https://github.com/nguyyy",
-        "https://www.linkedin.com/in/christopher-tran-6b8811353/"
-      ]
-    },
-    "hasPart": [
       {
         "@type": "SoftwareApplication",
         "name": "Vocalis",
@@ -85,8 +116,12 @@
     ]
   }
   </script>
-  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/favicon-96.png" type="image/png" sizes="96x96">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <link rel="preload" href="fonts/google-sans.9f244e26.woff2" as="font" type="font/woff2" crossorigin>
+  <noscript><style>[data-tab] { display: block; }</style></noscript>
   <script>
     try { var t = localStorage.getItem('theme'); if (t) document.documentElement.dataset.theme = t; } catch (e) { }
   </script>
@@ -592,8 +627,12 @@
       <section data-tab="about" aria-label="about">
         <div class="intro">
           <div class="photo">
-            <img src="sf.jpg" width="2160" height="2880" alt="Christopher Tran in San Francisco" fetchpriority="high" decoding="async"
-              onerror="this.remove()">
+            <picture>
+              <source type="image/avif" sizes="320px"
+                srcset="img/christopher-tran-640.7afb8cd2.avif 640w, img/christopher-tran-960.3aee1741.avif 960w">
+              <img src="img/christopher-tran-640.f33e284b.jpg" width="640" height="853"
+                alt="Christopher Tran in San Francisco" fetchpriority="high" decoding="async" onerror="this.remove()">
+            </picture>
           </div>
           <ul class="stats">
             <li>top 0.7% osu!mania player worldwide</li>
